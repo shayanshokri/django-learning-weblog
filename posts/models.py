@@ -7,5 +7,5 @@ class Post(models.Model):
     text = models.TextField(blank=True)
     active = models.BooleanField(default=False)
     publish_date = models.DateField(null=True, blank=True)
-    created_date = models.DateTimeField(auto_now_add=True)
+    created_time = models.DateTimeField(auto_now_add=True)
     updated_time = models.DateTimeField(auto_now=True)
