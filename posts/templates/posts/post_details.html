@@ -8,6 +8,11 @@
 
 <h1>{{post.title}}</h1>
 <p>{{post.text}}</p>
-
+<a href="/posts">Back to Post list</a>
+<hr/>
+{%for comment in comments%}
+    <p>{{comment.text}}</p>
+    <hr/>
+{% endfor %}
 </body>
 </html>
