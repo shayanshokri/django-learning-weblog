@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Post
+from .models import Post, Comment
 
 
 def home(request):
@@ -15,5 +15,6 @@ def post_list(request):
 
 def post_details(request, pk):
     post = Post.objects.get(id=pk)
-    context = {'post': post}
+    comments = Comment.objects.filter(post=post)
+    context = {'post': post, 'comments': comments}
     return render(request, 'posts/post_details.html', context=context)
