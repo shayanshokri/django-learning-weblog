@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound
 from .models import Post, Comment
 from .forms import PostForm
+from django.views import generic
 
 
 def home(request):
@@ -34,3 +35,10 @@ def post_create(request):
     else:
         form = PostForm()
         return render(request, 'posts/post_create.html', {'form': form})
+
+
+class PostList(generic.ListView):
+    queryset = Post.objects.all()
+    template_name = 'posts/post_list.html'
+    context_object_name = 'posts'
+
