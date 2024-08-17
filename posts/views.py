@@ -1,6 +1,7 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound
 from .models import Post, Comment
+from .forms import PostForm
 
 
 def home(request):
@@ -14,7 +15,11 @@ def post_list(request):
 
 
 def post_details(request, pk):
-    post = Post.objects.get(id=pk)
+    # try:
+    #     post = Post.objects.get(id=pk)
+    # except Post.DoesNotExist:
+    #     return HttpResponseNotFound(' Post not found!')
+    post = get_object_or_404(Post, pk=pk)
     comments = Comment.objects.filter(post=post)
     context = {'post': post, 'comments': comments}
     return render(request, 'posts/post_details.html', context=context)
