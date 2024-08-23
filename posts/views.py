@@ -4,9 +4,15 @@ from .models import Post, Comment
 from .forms import PostForm
 from django.views import generic
 
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
 
+
+@api_view(['GET', 'POST'])
 def home(request):
-    return HttpResponse("Welcome to my Weblog.")
+    print(request.data)
+    return Response(dict(request.data), status=status.HTTP_400_BAD_REQUEST)
 
 
 def post_list(request):
