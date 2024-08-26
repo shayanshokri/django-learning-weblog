@@ -8,11 +8,21 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 
+from .serializers import PostSerializers
+
 
 @api_view(['GET', 'POST'])
 def home(request):
-    print(request.data)
-    return Response(dict(request.data), status=status.HTTP_400_BAD_REQUEST)
+    try:
+        pk = request.query_params.get('pk')
+        posts = Post.objects.get(pk=pk)
+        serializer = PostSerializers(posts)
+        print(serializer)
+        print(serializer.data)
+        return Response(serializer.data)
+        # return Response({'posts': posts})
+    except Exception as E:
+        return Response({'details': 'post not found!'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 def post_list(request):
